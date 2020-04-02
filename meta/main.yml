@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  role_name: ruby-mac
+  author: martianplatypus
+  description: An Ansible role to install Ruby and RVM on Mac.
+  company: None
+
+  license: MIT
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: MacOSX
+      versions:
+        - 10.13
+        - 10.14
+
+  galaxy_tags:
+    - mac
+    - osx
+    - highsierra
+    - mojave
+    - ruby
+    - rvm
+    - gems
+    - bundler
+
+dependencies: []
