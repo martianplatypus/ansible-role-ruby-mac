@@ -1,6 +1,9 @@
 ruby-mac
 =========
 
+[![Galaxy Role][badge-role]][link-galaxy]
+[![MIT Licensed][badge-license]][link-license]
+
 An ansible role to install RVM and Ruby on MacOS.
 
 Requirements
@@ -23,7 +26,7 @@ Example Playbook
 
 WIP
 
-[badge-role]: https://img.shields.io/ansible/role/47418.svg?style=flat-square
+[badge-role]: https://img.shields.io/ansible/role/47589.svg?style=flat-square
 [badge-license]: https://img.shields.io/github/license/martianplatypus/ansible-role-ruby-mac
 [badge-travis]: https://img.shields.io/travis/com/martianplatypus/ansible-role-ruby-mac
 [link-galaxy]: https://galaxy.ansible.com/martianplatypus/ruby_mac/
