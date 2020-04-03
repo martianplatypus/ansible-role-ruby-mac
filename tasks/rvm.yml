@@ -28,4 +28,4 @@
 - name: Run post install script
   command: "source {{ ansible_env.HOME }}/.bashrc && {{ ansible_env.HOME }}/.rvm/scripts/rvm"
   register: result
-  when: rvm_install_result.rc == 0
+  when: rvm_installed.rc is defined and rvm_install_result.rc == 0
