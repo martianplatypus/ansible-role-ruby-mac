@@ -1,0 +1,9 @@
+---
+- name: Install a Ruby version via RVM
+  command: rvm install {{ ruby_version }}
+  register: rvm_installed
+  when: rvm_installed.stderr is defined and "'Already installed' not in rvm_installed.stderr"
+
+- name: Set Default Ruby
+  command: rvm --default use {{ ruby_version }}
+  when: make_default_ruby

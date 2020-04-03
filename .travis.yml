@@ -1,29 +1,49 @@
 ---
-language: python
-python: "2.7"
+jobs:
+  include:
+    - name: High Sierra
+      os: osx
+      osx_image: xcode10.1
+      language: minimal
+      env: ANSIBLE_VERSION='<2.9.0'
 
-# Use the new container infrastructure
-sudo: false
+before_install:
+  # Install pip
+  - curl https://bootstrap.pypa.io/get-pip.py | sudo -H /usr/bin/python
+  - which pip
+  - pip --version
 
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
+  # Setup virtualenv
+  - sudo -H pip install -U virtualenv --ignore-installed six
+  - virtualenv --version
+  - virtualenv .venv
+  - source .venv/bin/activate
 
 install:
-  # Install ansible
-  - pip install ansible
+  # Dependencies
+  - >-
+    pip install "ansible${ANSIBLE_VERSION}"
+    ansible-lint
+    testinfra
+    yamllint
 
-  # Check ansible version
+  # Check versions
   - ansible --version
+  - ansible-lint --version
+  - yamllint --version
 
   # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../' >ansible.cfg
+  - printf '[defaults]\nroles_path=../\ninventory = tests/inventory' > ansible.cfg
+
 
 script:
+  #lint
+  - yamllint .
+  - ansible-lint
+
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - ansible-playbook tests/test.yml -i tests/inventory --check
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

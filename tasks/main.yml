@@ -1,2 +1,4 @@
 ---
-# tasks file for ansible-role-ruby-mac
+- import_tasks: rvm_gpg.yml
+- import_tasks: rvm.yml
+- import_tasks: ruby.yml

@@ -1,0 +1,9 @@
+---
+- name: Check GPG installation
+  stat:
+    path: "{{ gpg_path }}"
+  register: stat_gpg
+
+- name: Install RVM GPG keys
+  command: gpg --keyserver {{ gpg_keyserver }} --recv-keys {{ gpg_key_1 }} {{ gpg_key_2 }}
+  when: stat_gpg.stat.exists
