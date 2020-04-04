@@ -1,3 +1,5 @@
 ---
 ruby_version: 2.6.5
 make_default_ruby: True
+
+ruby_gems: []
