@@ -2,6 +2,7 @@ ruby-mac
 =========
 
 [![Galaxy Role][badge-role]][link-galaxy]
+[![Build Status][badge-travis]][link-travis]
 [![MIT Licensed][badge-license]][link-license]
 
 An ansible role to install RVM and Ruby on MacOS.
@@ -43,8 +44,7 @@ GPG key server used to import the keys
     gpg_key_1: 409B6B1796C275462A1703113804BB82D39DC0E3
     gpg_key_2: 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 RVM maintainers keys:
-* `gpg_key_1` -> mpapis
-* `gpg_key_2` -> pkuczynski
+
 
 Dependencies
 ------------
@@ -54,9 +54,9 @@ None.
 Example Playbook
 ----------------
 
-- hosts: localhost
-  roles:
-     - role: ansible-role-ruby-mac
+    - hosts: localhost
+      roles:
+         - role: ansible-role-ruby-mac
 
 [badge-role]: https://img.shields.io/ansible/role/47589.svg?style=flat-square
 [badge-license]: https://img.shields.io/github/license/martianplatypus/ansible-role-ruby-mac
