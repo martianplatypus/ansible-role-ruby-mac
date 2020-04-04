@@ -2,3 +2,4 @@
 - import_tasks: rvm_gpg.yml
 - import_tasks: rvm.yml
 - import_tasks: ruby.yml
+- import_tasks: gems.yml
