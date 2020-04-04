@@ -1,0 +1,31 @@
+---
+- name: Check installation
+  command: rvm current
+  register: rvm_installed
+  changed_when: rvm_installed is failed
+  ignore_errors: true
+
+- name: Download installer
+  get_url:
+    url: https://get.rvm.io
+    dest: "{{ rvm_installer_script }}"
+    mode: u+rwx
+  when: rvm_installed.rc is defined and rvm_installed.rc == 127
+
+- name: Check install script
+  stat:
+    path: "{{ rvm_installer_script }}"
+  register: stat_install_rvm
+
+- name: Install rvm
+  command: "{{ rvm_installer_script }} stable --auto-dotfiles"
+  args:
+    chdir: "{{ ansible_env.HOME }}"
+    creates: "{{ ansible_env.HOME }}/.rvm"
+  register: rvm_install_result
+  when: stat_install_rvm.stat.exists
+
+- name: Run post install script
+  command: "source {{ ansible_env.HOME }}/.bashrc && {{ ansible_env.HOME }}/.rvm/scripts/rvm"
+  register: result
+  when: rvm_installed.rc is defined and rvm_install_result.rc == 0

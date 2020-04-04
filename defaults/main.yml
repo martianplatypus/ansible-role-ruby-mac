@@ -1,2 +1,3 @@
 ---
-# defaults file for ansible-role-ruby-mac
+ruby_version: 2.6.5
+make_default_ruby: True
