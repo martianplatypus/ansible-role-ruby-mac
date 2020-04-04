@@ -24,10 +24,12 @@ The version of Ruby that will be installed via RVM.
 
     make_default_ruby: true
 Set this variable to make the newly installed Ruby your system default.
+
 **Note**: After running a playbook with this role, it's recommended to restart your terminal session.
 
     ruby_gems
 The list of Ruby gems that will be installed on your Mac.
+
 **Note**: Since Ruby was installed with RVM, $GEM_HOME is set to your user home folder, i.e. `/Users/martianplatypus/.rvm/gems/ruby-2.6.5`. The whole Ruby installation including gems will be done under the current user $HOME path.
 
 
@@ -43,7 +45,7 @@ GPG key server used to import the keys
 
     gpg_key_1: 409B6B1796C275462A1703113804BB82D39DC0E3
     gpg_key_2: 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-RVM maintainers keys:
+RVM maintainers [keys](https://rvm.io/rvm/security#trust-our-keys).
 
 
 Dependencies
