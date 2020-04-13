@@ -4,8 +4,7 @@ jobs:
     - name: High Sierra
       os: osx
       osx_image: xcode10.1
-      language: minimal
-      env: ANSIBLE_VERSION='<2.9.0'
+      language: shell
 
 before_install:
   # Install pip
@@ -22,9 +21,8 @@ before_install:
 install:
   # Dependencies
   - >-
-    pip install "ansible${ANSIBLE_VERSION}"
+    pip install ansible
     ansible-lint
-    testinfra
     yamllint
 
   # Check versions
@@ -44,6 +42,9 @@ script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   - ansible-playbook tests/test.yml -i tests/inventory --check
+
+  - ansible-playbook tests/test.yml -i tests/inventory --extra-vars "ci_running=true"
+  - rvm list
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
