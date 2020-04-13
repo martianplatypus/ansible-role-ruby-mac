@@ -4,49 +4,48 @@ jobs:
     - name: High Sierra
       os: osx
       osx_image: xcode10.1
-      language: minimal
-      env: ANSIBLE_VERSION='<2.9.0'
+      language: shell
 
 before_install:
-  # Install pip
-  - curl https://bootstrap.pypa.io/get-pip.py | sudo -H /usr/bin/python
-  - which pip
-  - pip --version
-
-  # Setup virtualenv
-  - sudo -H pip install -U virtualenv --ignore-installed six
-  - virtualenv --version
-  - virtualenv .venv
-  - source .venv/bin/activate
+  # # Install pip
+  # - curl https://bootstrap.pypa.io/get-pip.py | sudo -H /usr/bin/python
+  # - which pip
+  # - pip --version
+  #
+  # # Setup virtualenv
+  # - sudo -H pip install -U virtualenv --ignore-installed six
+  # - virtualenv --version
+  # - virtualenv .venv
+  # - source .venv/bin/activate
+  - gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 
 install:
-  # Dependencies
-  - >-
-    pip install "ansible${ANSIBLE_VERSION}"
-    ansible-lint
-    testinfra
-    yamllint
-
-  # Check versions
-  - ansible --version
-  - ansible-lint --version
-  - yamllint --version
-
-  # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../\ninventory = tests/inventory' > ansible.cfg
+  # # Dependencies
+  # - >-
+  #   pip install ansible
+  #   ansible-lint
+  #   yamllint
+  #
+  # # Check versions
+  # - ansible --version
+  # - ansible-lint --version
+  # - yamllint --version
+  #
+  # # Create ansible.cfg with correct roles_path
+  # - printf '[defaults]\nroles_path=../\ninventory = tests/inventory' > ansible.cfg
 
 
 script:
-  #lint
-  - yamllint .
-  - ansible-lint
-
-  # Basic role syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-  - ansible-playbook tests/test.yml -i tests/inventory --check
-
-  - ansible-playbook tests/test.yml -i tests/inventory
-  - rvm list
+  # #lint
+  # - yamllint .
+  # - ansible-lint
+  #
+  # # Basic role syntax check
+  # - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  # - ansible-playbook tests/test.yml -i tests/inventory --check
+  #
+  # - ansible-playbook tests/test.yml -i tests/inventory
+  # - rvm list
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
