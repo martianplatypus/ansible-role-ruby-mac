@@ -5,7 +5,7 @@
   register: stat_gpg
 
 - name: Install RVM GPG keys
-  command: gpg --recv-keys {{ gpg_key_1 }} {{ gpg_key_2 }}
+  command: gpg --keyserver {{ gpg_keyserver }} --recv-keys {{ gpg_key_1 }} {{ gpg_key_2 }}
   # register: result
   when: stat_gpg.stat is defined and stat_gpg.stat.exists
   # failed_when: not ci_running
