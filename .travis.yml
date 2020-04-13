@@ -45,5 +45,8 @@ script:
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   - ansible-playbook tests/test.yml -i tests/inventory --check
 
+  - ansible-playbook tests/test.yml -i tests/inventory
+  - rvm list
+
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
