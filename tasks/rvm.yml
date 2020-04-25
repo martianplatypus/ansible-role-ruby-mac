@@ -49,3 +49,15 @@
   when:
     - rvm_install_result.rc is defined and rvm_install_result.rc == 0
     - not ansible_check_mode
+
+- name: Update rvm
+  command: rvm get head
+  changed_when: False
+  when:
+    - rvm_install_result.rc is defined and rvm_install_result.rc == 0
+    - not ansible_check_mode
+
+- name: Configure rvm
+  command: rvm autolibs enable
+  changed_when: False
+  when: not ansible_check_mode
