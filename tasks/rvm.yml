@@ -43,7 +43,9 @@
   changed_when: shell_config_file_stat.stat is defined and not shell_config_file_stat.stat.exists
 
 - name: Run post install script
-  command: "source {{ ansible_env.HOME }}/{{ shell_config_file }} && {{ ansible_env.HOME }}/.rvm/scripts/rvm"
+  shell: "source {{ ansible_env.HOME }}/{{ shell_config_file }} && {{ ansible_env.HOME }}/.rvm/scripts/rvm"
+  args:
+    executable: "{{ ansible_env.SHELL }}"
   when:
     - rvm_install_result.rc is defined and rvm_install_result.rc == 0
     - not ansible_check_mode
