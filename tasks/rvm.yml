@@ -10,7 +10,7 @@
     url: https://get.rvm.io
     dest: "{{ rvm_installer_script }}"
     mode: u+rwx
-  when: rvm_installed.rc is defined and rvm_installed.rc == 127
+  when: rvm_installed is failed
 
 - name: Check install script
   stat:
