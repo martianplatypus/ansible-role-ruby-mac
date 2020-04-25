@@ -25,6 +25,25 @@
   register: rvm_install_result
   when: stat_install_rvm.stat.exists
 
+- name: Set shell config file variable
+  set_fact:
+    shell_config_file: "{{ ansible_distribution_version is version(10.15, '<') | ternary ('.bashrc', '.zshrc') }}"
+
+- name: Check shell config file exists
+  stat:
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
+  register: shell_config_file_stat
+
+- name: Create shell config file
+  file:
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
+    state: touch
+    mode: u+rw
+  when: not ansible_check_mode
+  changed_when: shell_config_file_stat.stat is defined and not shell_config_file_stat.stat.exists
+
 - name: Run post install script
-  command: "source {{ ansible_env.HOME }}/.bashrc && {{ ansible_env.HOME }}/.rvm/scripts/rvm"
-  when: rvm_install_result.rc is defined and rvm_install_result.rc == 0
+  command: "source {{ ansible_env.HOME }}/{{ shell_config_file }} && {{ ansible_env.HOME }}/.rvm/scripts/rvm"
+  when:
+    - rvm_install_result.rc is defined and rvm_install_result.rc == 0
+    - not ansible_check_mode
